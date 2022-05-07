@@ -1,16 +1,16 @@
-const Card = ({ item }) => {
+const Card = ({ item, onRemove = () => {} }) => {
 
   const keywords = item?.title?.split(' ')?.join(',')
   return (
-    <div class="card" style={{ width : '25%', padding: 0}}>
+    <div id={item?.id} class="card" style={{ width : '25%', padding: 0}}>
       <img src={`https://loremflickr.com/320/240/${keywords}`}
       />
       <div class="card-body">
         <h5 class="card-title">{item?.title}</h5>
         
-        <a href="#" class="btn btn-danger">
+        <button onClick={() => onRemove(item?.id)} class="btn btn-danger">
           Remover da lista
-        </a>
+        </button>
       </div>
     </div>
   );

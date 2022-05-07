@@ -5,7 +5,7 @@ const List = () => {
 
   const [wishItem, setwishItem] = useState('');
 
-  const [wishlist, serWishList] = useState([
+  const [wishlist, setWishList] = useState([
     {
       id: 1,
       title: 'Tênis Nike',
@@ -17,8 +17,21 @@ const List = () => {
       id: new Date().getTime(),
       title: wishItem,
     };
-    serWishList([...wishlist, newwishItem]);
+    setWishList([...wishlist, newwishItem]);
+    setwishItem('');
   }
+
+  const removeWhishItem = (id) => {
+    const removeConfirm = window.confirm(
+      'Tem certeza que deseja remover esse dsejo?'
+    );
+
+    if (removeConfirm) {
+      const newwishItem = wishlist?.filter((item) => item?.id !== id);
+      setWishList(newwishItem)
+    }
+  };
+
 
   return (
     <div className="container">
@@ -29,6 +42,7 @@ const List = () => {
             type="text"
             class="form-control"
             placeholder="Adicione um desejo"
+            value={wishItem}
             onChange={(e) => {
               setwishItem(e.target.value)
             }}
@@ -43,7 +57,7 @@ const List = () => {
       </div>
       <div className='row mt-5'>
         {wishlist?.map(item =>(
-          <Card item={item}/>
+          <Card item={item} onRemove={(id) =>removeWhishItem(id)}/>
         ))}
       </div>
     </div>

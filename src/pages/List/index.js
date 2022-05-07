@@ -45,6 +45,7 @@ const List = () => {
             value={wishItem}
             onChange={(e) => {
               setwishItem(e.target.value)
+              
             }}
           />
           <button onClick={addWhishItem} 

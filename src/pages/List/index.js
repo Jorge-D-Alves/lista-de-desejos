@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Card from '../../components/Card';
 
 const List = () => {
@@ -8,7 +8,7 @@ const List = () => {
   const [wishlist, setWishList] = useState([
     {
       id: 1,
-      title: 'Tênis Nike',
+      title: 'Tênis Nike 1',
     },
   ]);
 
@@ -17,9 +17,10 @@ const List = () => {
       id: new Date().getTime(),
       title: wishItem,
     };
+
     setWishList([...wishlist, newwishItem]);
     setwishItem('');
-  }
+  };
 
   const removeWhishItem = (id) => {
     const removeConfirm = window.confirm(
@@ -32,6 +33,32 @@ const List = () => {
     }
   };
 
+  const updateTenisNike = () => {
+    setWishList([
+      {
+        id: 1,
+        title: 'Tênis Nike Atualizado',
+      },
+      // ...wishlist,
+    ]);
+  };
+
+  // MONTAGEM
+  useEffect(() => {
+    setTimeout (() => {
+      updateTenisNike();
+    }, 1000 * 3);
+  }, []);
+
+  // SE PRECISAR CHAMAR A RE-RENDERIZAÇÃO POR QUALQUER MOTIVO
+  useEffect(() => {
+    console.log('O componente foi re-renderizado')
+  })
+
+  // ATUALIZAÇÃO DE STATE
+  useEffect(() => {
+    console.log('A Lista foi atualizada')
+  }, [wishlist]);
 
   return (
     <div className="container">
@@ -45,7 +72,7 @@ const List = () => {
             value={wishItem}
             onChange={(e) => {
               setwishItem(e.target.value)
-              
+
             }}
           />
           <button onClick={addWhishItem} 
